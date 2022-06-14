@@ -1,6 +1,10 @@
 ## Introduction
 This repository contains all the source code and binary for [Smart Access Platform Solution](https://www.nxp.com/design/designs/smart-access-platform-solution:SMART-ACCESS-PLATFORM). The platform intergrates various connecitivity and authentication options to showcase the NXP smart technologies for access solution.
 
+### Clone with submodule sync
+Our solution vizn3d_smartlock_oobe is linked as a submodule. After you clone the main repository, please sync the submodule using the command below:
+git submodule update --init --recursive --remote
+
 ### Main Control
 The LPC55S69 is an ARM Cortex M33 based micro controller, running at a frequency of up to 150 MHz, supports Floating Point Unit (FPU) , includes up to 320 KB on-chip SRAM and up to 640 KB on-chip flash, provides up to 9 flexible communication interfaces (each of FlexComm 0-7 could be configured to be a USART, SPI, I2C, or I2S interface, FlexComm 8 is dedicated for High-Speed SPI), which is very good at to be a main control.
 

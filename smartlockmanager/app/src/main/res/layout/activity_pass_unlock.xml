@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pass_unlock_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:animateLayoutChanges="true"
+    tools:context=".activity.PassUnlockActivity">
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:id="@+id/toolbar_container"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:background="@color/white"
+      android:clipChildren="false"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/outlinedTextField">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/back_fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/fab_margin"
+      android:translationY="44dp"
+      android:onClick="onBackFABPressed"
+      android:src="@drawable/ic_baseline_arrow_back_24"
+      app:backgroundTint="@color/button_blue"
+      app:elevation="12dp"
+      app:tint="@color/white"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="@id/toolbar_container" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/unlock_fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/fab_margin"
+      android:onClick="onUnlockFABPressed"
+      android:src="@drawable/ic_baseline_login_24"
+      android:translationY="44dp"
+      app:backgroundTint="@color/button_blue"
+      app:elevation="12dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="@id/toolbar_container"
+      app:tint="@color/white" />
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/outlinedTextField"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/fab_size"
+      android:layout_marginStart="28dp"
+      android:layout_marginEnd="28dp"
+      android:hint="@string/password_hint"
+      android:textColorHint="@color/temperature_gray"
+      android:elevation="6dp"
+      app:counterEnabled="true"
+      app:counterMaxLength="6"
+      app:startIconDrawable="@drawable/ic_baseline_lock_24"
+      app:endIconMode="password_toggle"
+      app:endIconTint="@color/temperature_gray"
+      app:boxStrokeColor="@color/text_input_layout_stroke_color"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      app:layout_constraintBottom_toTopOf="@id/forgotten_password">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/pass_unlock_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:maxEms="6"
+        android:maxLength="6"
+        android:layout_gravity="bottom"/>
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <TextView
+      android:id="@+id/forgotten_password"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="28dp"
+      android:layout_marginEnd="28dp"
+      android:layout_marginBottom="28dp"
+      android:alpha="0.4"
+      android:elegantTextHeight="true"
+      android:text="@string/change_password_description"
+      android:textAlignment="center"
+      android:textColor="@color/black"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

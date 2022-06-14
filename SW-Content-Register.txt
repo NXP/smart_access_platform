@@ -1,0 +1,107 @@
+Release Name: MCUXpresso Software Development Kit (SDK)
+Release Version: 2.11
+Package License: LA_OPT_NXP_Software_License.txt - Additional Distribution use, section 2.3 applies
+
+cmsis                      Name: CMSIS                                       
+                           Version: 5.6.0                                    
+                           Outgoing License: Apache License 2.0              
+                           License File: Apache License 2.0                   
+                           Format: source code                               
+                           Description: Vendor-independent hardware          
+                           abstraction layer for microcontrollers that are   
+                           based on Arm Cortex processors, distributed by    
+                           ARM. cores                                        
+                           Location: lpc55s69-control/apps/CMSIS                                 
+                           Origin: ARM (Apache-2.0) -                        
+                           https://github.com/ARM-software/CMSIS_5/releases/t
+                           ag/5.6.0 
+
+sln_smart_lock             Name: sln_smart_lock
+			   Version: 1.0.1                                 
+                           Outgoing License: LA_OPT_NXP_Software_License.txt           
+                           License File: LA_OPT_NXP_Software_License.txt                  
+                           Format: source code                               
+                           Description: NXP’s EdgeReady MCU-based solution for 
+			   3D face recognition leverages the i.MX RT117F crossover
+			   MCU, enabling developers to quickly and easily add 3D 
+		           face recognition with advanced liveness detection to their
+		           products, with the confidence that it will work in even the 
+		           most challenging outdoor lighting conditions and can resist 
+			   the most sophisticated spoofing attacks.                                        
+                           Location: sln_smart_lock                                 
+                           Origin: NXP (https://github.com/NXP/vizn3d_smartlock_oobe)
+
+lpc55s69-control           Name: lpc55s69-control
+			   Version: 1.0.0                                
+                           Outgoing License: LA_OPT_NXP_Software_License.txt           
+                           License File: LA_OPT_NXP_Software_License.txt                  
+                           Format: source code                               
+                           Description: Main controller board from smart access platform.                                        
+                           Location: lpc55s69-control                                 
+                           Origin: NXP
+
+vizn3d_bootloader          Name: vizn3d_bootloader
+			   Version: 1.0.0                     
+                           Outgoing License: LA_OPT_NXP_Software_License.txt           
+                           License File: LA_OPT_NXP_Software_License.txt                  
+                           Format: source code                               
+                           Description: Startup application for SLN-VIZN3D-IOT.                                        
+                           Location: vizn3d_bootloader                                 
+                           Origin: NXP
+
+kw-matter                  Name: kw-matter
+			   Version: test event 8                                 
+                           Outgoing License: Apache-2.0 license        
+                           License File: Apache-2.0 license               
+                           Format: binary                               
+                           Description: Matter is creating more connections between more
+                           objects, simplifying development for manufacturers and increasing 
+			   compatibility for consumers, guided by the Connectivity Standards Alliance.                                        
+                           Location: kw-matter                              
+                           Origin: NXP (Apache License Version 2.0)
+                                      
+NFC reader                 Name: NFC reader                                    
+                           Version: v07.04.00                                    
+                           Outgoing License: LA_OPT_NXP_Software_License.txt      
+                           License File: LA_OPT_NXP_Software_License.txt        
+                           Format: source code                               
+                           Description: NFC reader library (it does not use security features of the MIFARE cards)
+			   https://www.nxp.com/design/designs/nfc-reader-library-software-support-for-nfc-frontend-solutions:NFC-READER-LIBRARY                             
+                           Location: lpc55s69-control/apps/nfc_reader                                 
+                           Origin: NXP      
+
+qn-ble-uwb                 Name: qn-ble-uwb                                   
+                           Version: 1.0.0                                    
+                           Outgoing License: LA_OPT_NXP_Software_License.txt      
+                           License File: LA_OPT_NXP_Software_License.txt        
+                           Format: source code                           
+                           Description: BLE and UWB access for the platform                                
+                           Location: qn-ble-uwb                                 
+                           Origin: NXP                                     
+
+kl16-touch                 Name: kl16-touch                                   
+                           Version: 1.0.0                                    
+                           Outgoing License: LA_OPT_NXP_Software_License.txt      
+                           License File: LA_OPT_NXP_Software_License.txt        
+                           Format: source code                           
+                           Description: Touchpad software                                
+                           Location: kl16-touch                                 
+                           Origin: NXP         
+
+fingerprint         	   Name: fingerprint                                   
+                           Version: 1.0.0                                    
+                           Outgoing License: LA_OPT_NXP_Software_License.txt      
+                           License File: LA_OPT_NXP_Software_License.txt        
+                           Format: source code                           
+                           Description: Touchpad software                                
+                           Location: lpc55s69-control/apps/fingerprint                                
+                           Origin: NXP      
+
+smartlockmanager           Name: smartlockmanager                                   
+                           Version: 1.0.1                                    
+                           Outgoing License: LA_OPT_NXP_Software_License.txt      
+                           License File: LA_OPT_NXP_Software_License.txt        
+                           Format: source code                           
+                           Description: Android application                               
+                           Location: smartlockmanager                                
+                           Origin: NXP               

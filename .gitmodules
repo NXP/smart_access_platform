@@ -1,0 +1,4 @@
+[submodule "vizn3d_smartlock_oobe"]
+	path = vizn3d_smartlock_oobe
+	url = https://github.com/NXP/vizn3d_smartlock_oobe/tree/smart_access
+	branch = smart_access

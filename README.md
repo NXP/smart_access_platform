@@ -1,40 +1,26 @@
 ## Introduction
-This repository contains all the source code and binary for [Smart Access Platform Solution](https://www.nxp.com/design/designs/smart-access-platform-solution:SMART-ACCESS-PLATFORM). The platform intergrates various connecitivity and authentication options to showcase the NXP smart technologies for access solution.
+This repository contains all the deliveries of [Smart Access Platform Solution](https://www.nxp.com/design/designs/smart-access-platform-solution:SMART-ACCESS-PLATFORM), please refer its "User Guide" to get started, and "Software Developer Guide" to develop the modules by yourself.
 
-### Clone with submodule sync
-Our solution vizn3d_smartlock_oobe is linked as a submodule. After you clone the main repository, please sync the submodule using the command below:
-git submodule update --init --recursive --remote
+## audio_files
+This folder contains all the audio files used by the solution, and they have been preinstalled into the SPI NOR Flash.
 
-### Main Control
-The LPC55S69 is an ARM Cortex M33 based micro controller, running at a frequency of up to 150 MHz, supports Floating Point Unit (FPU) , includes up to 320 KB on-chip SRAM and up to 640 KB on-chip flash, provides up to 9 flexible communication interfaces (each of FlexComm 0-7 could be configured to be a USART, SPI, I2C, or I2S interface, FlexComm 8 is dedicated for High-Speed SPI), which is very good at to be a main control.
+## lpc55s69_application
+This folder contains the source code of LPC55S69 Application MCUXpresso project.
 
-The folder 'lpc55s69-control' contains all the source code running on top of LPC55S69.
-The flash address is 0x00000000 for bootloader and 0x00008000 for application.
+## lps55s69_bootloader
+This folder contains the source code of LPC55S69 Bootloader MCUXpresso project.
 
-### Android APK
-The Android application would be used to manipulate the system remotely, such as 'add user', 'delete user', 'update user', etc.
-The folder 'smartlockmanager' contains all the source code to implement the APK.
+## prebuilt_binaries
+This folder contains the prebuilt binaries, and they have been preinstalled into the MCUs.
 
-### Face Recognition
-Smart Access Platform Solution leverages [SLN-VIZN3D-IOT](https://www.nxp.com/design/designs/nxp-edgeready-mcu-based-solution-for-3d-face-recognition:VIZN3D) to provide the 3D Face Recognition functionality.
+## rt117f_application
+This folder contains the source code of i.MX RT117F Application MCUXpresso project.
 
-###### Bootloader
-The foloder 'vizn3d_bootloader' contains all the source code to boot 'SLN-VIZN3D-IOT kit' for application update.
-The flash address is 0x30000000.
+## rt117f_bootloader
+This folder contains the source code of i.MX RT117F Bootloader MCUXpresso project.
 
+## script
+This folder contains the necessary script files, such as the script used for update audio files.
 
-###### Application
-The foloder 'sln_smart_lock' contains all the source code to implement face recognition.
-The flash address is 0x30200000.
-
-### Capacitive Touch Panel
-The folder 'k16-touch' contains the binary running on KL16 for PinPad functionality.
-The flash address is 0x00000000.
-
-### Matter
-The folder 'kw-matter' contains the binary running on K32W for Matter functionality based on Thread.
-The flash address is 0x00000000.
-
-### BLE & UWB
-The folder 'qn9090_firmware' contains the binary running on QN9090 for BLE and UWB functionality.
-The flash address is 0x00000000.
+## smart_access_manager
+This folder contains the source code of "Smart Access Manager" Android Studio project.

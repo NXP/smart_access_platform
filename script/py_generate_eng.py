@@ -79,7 +79,7 @@ def main(object):
 
     ser = serial.Serial()
     #ser.port = "/dev/ttyUSB0"
-    ser.port = "COM34"
+    ser.port = "COM5"
     #ser.port = "/dev/ttyS2"
     ser.baudrate = 115200
     ser.bytesize = serial.EIGHTBITS #number of bits per bytes
@@ -110,17 +110,13 @@ def main(object):
                      #and discard all that is in buffer
             ser.write(str.encode("UPDATEBIN\r\n"))
 
-            numOfLines = 0
-
             while True:
                 time.sleep(1)
                 response = ser.readline()
-                print("read data: %s" %response)
+                #print("read data: %s" %response)
                 if(response == b'OK'):
                     ack_status = 1
-                    print("Received OK")
-                    break
-                if (numOfLines >= 5):
+                    print("OK")
                     break
 
             if (ack_status == 1):
@@ -128,22 +124,15 @@ def main(object):
                 for read_num in range(0, 34):
                     send_buf = bin_object.read(16384)
                     ser.write(send_buf)
-                    print("write data %s" %chr(read_num) )
-
-                    numOfLines = 0
+                    print("Write data %s ..." % str(read_num))
 
                     while True:
                         time.sleep(1)
                         response = ser.readline()
-                        print("read data: %s" %response)
-                        if(response == "TimeOut"):
-                            numOfLines = 5
+                        #print("read data: %s" % response)
+                        if str(response).find("done") >= 0:
+                            print("Done!")
                             break
-
-                        numOfLines = numOfLines + 1
-                        if (numOfLines >= 5):
-                            break
-
 
             ser.close()
 

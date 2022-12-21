@@ -23,6 +23,7 @@ import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,13 +113,33 @@ public class SmartAccessActivity extends BaseServiceActivity {
     private boolean bluetoothInit = false;
 
     public static Handler appTypeHandler = new Handler();
+    public static Handler connectionCheckHandler = new Handler();
     private static final int APP_TYPE_DELAY = 10 * 1000; /* time in ms */
+    private static final int CONNECTION_CHECK_DELAY = 10 * 1000; /* time in ms */
 
     @Override
     public void onEventMainThread(BLEStateEvent.Connecting e) {
         super.onEventMainThread(e);
+
+        /* block user touch */
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         StatusPopUp.getStatusPopUpInstance().showProgress(
                 this, findViewById(R.id.smartaccess_view), getString(R.string.state_connecting));
+
+        connectionCheckHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (BLEService.INSTANCE.getConnectionState() != BLEService.State.STATE_CONNECTED) {
+                    /* restore user touch */
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    StatusPopUp.getStatusPopUpInstance().dismiss(SmartAccessActivity.this);
+                    releaseConnection();
+                    finish();
+                }
+            }
+        }, CONNECTION_CHECK_DELAY);
     }
 
     @Override
@@ -129,6 +150,8 @@ public class SmartAccessActivity extends BaseServiceActivity {
 
         StatusPopUp.getStatusPopUpInstance().showProgress(
                 this, this.findViewById(R.id.smartaccess_view), getString(R.string.state_get_app_type));
+
+        connectionCheckHandler.removeCallbacksAndMessages(null);
 
         appTypeHandler.postDelayed(new Runnable() {
             @Override
@@ -155,6 +178,10 @@ public class SmartAccessActivity extends BaseServiceActivity {
             FINGERPRINT_SUPPORT = true;
 
         bluetoothInit = true;
+
+        /* restore user touch after getting app type */
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         this.registerReceiver(BLEService.INSTANCE.mReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
         appTypeHandler.removeCallbacksAndMessages(null);
 
@@ -162,6 +189,22 @@ public class SmartAccessActivity extends BaseServiceActivity {
         onPressFABCardView(findViewById(R.id.smartaccess_view));
 
         StatusPopUp.getStatusPopUpInstance().dismiss(SmartAccessActivity.this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(BLEStateEvent.ConnectionTimeout e) {
+        Log.d(TAG, "+ConnectionTimeout");
+
+        if (e == null) return;
+
+        /* Getting app type timeout */
+        /* restore user touch after */
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        StatusPopUp.getStatusPopUpInstance().dismiss(SmartAccessActivity.this);
+        releaseConnection();
+        finish();
+
+        Log.d(TAG, "-ConnectionTimeout");
     }
 
     @Override
@@ -202,6 +245,11 @@ public class SmartAccessActivity extends BaseServiceActivity {
         super.onCreate(savedInstanceState);
 
         fullScreen(getWindow());
+
+        FACE_SUPPORT = false;
+        FINGERPRINT_SUPPORT = false;
+        NFC_SUPPORT = false;
+        UWB_SUPPORT = false;
 
         setContentView(R.layout.activity_smart_access);
 
@@ -323,13 +371,28 @@ public class SmartAccessActivity extends BaseServiceActivity {
 
     @Override
     public void onBackPressed() {
-        releaseConnection();
-        finish();
+        if (!bluetoothInit) {
+            StatusPopUp.getStatusPopUpInstance().showToast(this, getString(R.string.back_button_error));
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(true);
+            builder.setTitle("Disconnect from board");
+            builder.setMessage("Are you sure?");
+            builder.setPositiveButton("Confirm",
+                    (dialog, which) -> {
+                        releaseConnection(SmartAccessActivity.this);
+                        finish();
+                    });
+            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     public void onBackFABPressed(View view) {
-        releaseConnection();
-        finish();
+        onBackPressed();
     }
 
     public void onPressFABCardView(View view) {

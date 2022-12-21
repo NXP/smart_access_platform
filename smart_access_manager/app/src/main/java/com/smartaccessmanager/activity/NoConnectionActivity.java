@@ -34,11 +34,16 @@ public class NoConnectionActivity extends AppCompatActivity {
 
         /* Stop handlers from running on disconnect */
         SmartAccessActivity.appTypeHandler.removeCallbacksAndMessages(null);
+        SmartAccessActivity.connectionCheckHandler.removeCallbacksAndMessages(null);
         MainActivity.wakeUpHandler.removeCallbacksAndMessages(null);
         try { activity.unregisterReceiver(BLEService.INSTANCE.mReceiver); }
         catch (IllegalArgumentException ignored) { }
 
-        pendingIntent.setClass(activity, NoConnectionActivity.class);
+        if(activity.getClass() == SmartAccessActivity.class) {
+            pendingIntent.setClass(activity, MainActivity.class);
+        } else {
+            pendingIntent.setClass(activity, NoConnectionActivity.class);
+        }
         activity.startActivity(pendingIntent);
     }
 

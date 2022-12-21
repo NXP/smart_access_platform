@@ -16,6 +16,7 @@ package com.smartaccessmanager.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -324,6 +325,30 @@ public class BaseServiceActivity extends BaseActivity {
 
     public void releaseConnection(){
         BLEService.INSTANCE.disconnect();
+
+        /* Remove all callbacks in case of hanging */
+        /* Stop handlers from running on disconnect */
+        SmartAccessActivity.appTypeHandler.removeCallbacksAndMessages(null);
+        SmartAccessActivity.connectionCheckHandler.removeCallbacksAndMessages(null);
+        MainActivity.wakeUpHandler.removeCallbacksAndMessages(null);
+
+        if(EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
+    public void releaseConnection(Activity activity){
+        BLEService.INSTANCE.disconnect();
+
+        /* Remove all callbacks in case of hanging */
+        /* Stop handlers from running on disconnect */
+        SmartAccessActivity.appTypeHandler.removeCallbacksAndMessages(null);
+        SmartAccessActivity.connectionCheckHandler.removeCallbacksAndMessages(null);
+        MainActivity.wakeUpHandler.removeCallbacksAndMessages(null);
+        try { activity.unregisterReceiver(BLEService.INSTANCE.mReceiver); }
+        catch (IllegalArgumentException ignored) { }
+
         if(EventBus.getDefault().isRegistered(this))
         {
             EventBus.getDefault().unregister(this);

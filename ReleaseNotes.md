@@ -1,5 +1,16 @@
 # Smart Access Platform Solution Release Notes
 
+## V1.3.0
+
+**What's New**
+1. Add Nearby Interaction application support to work with UWB enabled iOS and Android phones
+2. Update Matter to V1.0 to work with Apple HomePod Mini
+3. Optimize audio files downloading working flow
+
+**Known Limitation**
+1. UWB Tag not supported yet
+2. Any UWB enabled phone could control the door lock
+
 ## V1.2.0
 
 **What's New**

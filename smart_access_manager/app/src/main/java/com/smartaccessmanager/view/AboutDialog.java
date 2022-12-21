@@ -52,7 +52,6 @@ public class AboutDialog extends MaterialDialog {
         Algorithm algorithm = new Algorithm();
 
         mAppInfo.setText(String.format(Locale.getDefault(),
-                "Release Version\n%s\n\nAlgorithm Version\n%s", BuildConfig.VERSION_NAME,
-                (algorithm.GetVersion() >> 16) + "." + ((algorithm.GetVersion() >> 8) & 0xff) + "." + (algorithm.GetVersion() & 0xff)));
+                "Release Version\n%s", BuildConfig.VERSION_NAME));
     }
 }

@@ -314,10 +314,10 @@ public class MainActivity extends BaseScanActivity {
             return;
         }
 
-        if (!isScanning) {
-            Toast.makeText(MainActivity.this, getString(R.string.scanning_not_active), Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (!isScanning) {
+//            Toast.makeText(MainActivity.this, getString(R.string.scanning_not_active), Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
         pendingIntent = new Intent();
         pendingIntent.setClass(MainActivity.this, SmartAccessActivity.class);

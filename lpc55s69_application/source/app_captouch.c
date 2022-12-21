@@ -715,12 +715,6 @@ uint8_t APP_CAPT_Task(void)
 					if(i == 10)  s_captValue = '0';
                     if(i == 16)  s_captValue = 0x16;
 
-                } else if(btn_event_val[i] == SINGLE_CLICK) {
-                	/* Click alarm button */
-                    if(i == 16)
-                    {
-                    	APP_MATTER_Printf("AT+MATTERRESET=\r\n");
-                    }
                 } else if(btn_event_val[i] == LONG_PRESS_HOLD) {
                     PRINTF("KEY %d Pressed Hold\r\n", i);
                     /* Hold ALARM button for a while */
@@ -728,11 +722,15 @@ uint8_t APP_CAPT_Task(void)
                     {
                         uint8_t vizn_id = 0xFF;
 
+                        APP_MATTER_Printf("AT+MATTERRESET=\r\n");
+
                         for (uint8_t j = 0; j < 50; j++)
                         {
                             if (APP_SYS_VIZNIDGet(j, &vizn_id) != 0xFFFFFFFF && vizn_id <= 50)
                             {
                                 APP_FACEID_Printf("AT+FACEDEL=%d\r\n", vizn_id);
+                                /* ESPA-304: Add delay to walk around LPC stuck problem when remove face registration */
+                                KL16Z_Delayus(180000);
                             }
                         }
                         __disable_irq();
@@ -740,6 +738,8 @@ uint8_t APP_CAPT_Task(void)
                         APP_SYS_InfoLoad();
                         __enable_irq();
                         APP_MP3_Play(18); APP_MP3_Play(18); APP_MP3_Play(18);
+
+                        g_UserCfg.locktype = 0;
                     }
                 }
             }
@@ -748,7 +748,7 @@ uint8_t APP_CAPT_Task(void)
         if(s_captValue != KEYIDLE)
         {
 
-            /* Switch clock type */
+            /* Switch lock type */
             if (s_captValue == 0x16)
             {
                 g_UserCfg.locktype++;
@@ -770,9 +770,8 @@ uint8_t APP_CAPT_Task(void)
                 APP_SYS_InfoSave();
                 s_captValue = 0;
             }
-
             /* Wakeup MCU 10s */
-            if(s_captValue == '*') /* '*' button as backspace */
+            else if(s_captValue == '*') /* '*' button as backspace */
             {
 #if CAPTTASKDEBUG
                 PRINTF("*** CAPT delete 1bit\r\n");

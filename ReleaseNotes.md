@@ -8,8 +8,9 @@
 3. Optimize audio files downloading working flow
 
 **Known Limitation**
-1. UWB Tag not supported yet
+1. UWB Tag not supported in this Nearby Interaction supporting version, could work with v1.2.0 still
 2. Any UWB enabled phone could control the door lock
+3. Access options shall not be executed at the same time
 
 ## V1.2.0
 
